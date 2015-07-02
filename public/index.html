@@ -1,12 +1,32 @@
 <!DOCTYPE>
-<html ng-app>
+<html ng-app="contactList">
 <head>
+	<link rel="stylesheet" type="text/css" href="components/bootstrap-css/css/bootstrap.min.css">
   <title>Contact List App</title>
 </head>
 <body>
-  <h1>Contact List App</h1>
-<input ng-model="test">
-{{test}}
-<script src="app/components/angular/angular.js"></script>
+	<div class="container" ng-controller="contactListController as clCtrl">
+  		<h1>Contact List App</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Phone</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="contact in contactlist">
+					<td>{{contact.name}}</td>
+					<td>{{contact.email}}</td>
+					<td>{{contact.number}}</td>
+				</tr>
+			</tbody>
+		</table>
+</div>
+<script src="components/angular/angular.js"></script>
+<script src="contactList/contactList.module.js"></script>
+<script src="contactList/contactList.controller.js"></script>
+
 </body>
 </html>
