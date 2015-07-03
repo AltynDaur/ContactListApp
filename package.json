@@ -1,6 +1,7 @@
 {
   "name": "ContactListApp",
   "author": "dauren",
+  "version": "1.0.0"
   "description": "My first app with Node.js, Express, Bower, Gulp",
   "repository": "https://github.com/AltynDaur/ContactListApp",
   "dependencies": {
