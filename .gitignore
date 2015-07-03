@@ -1,3 +1,6 @@
+#production html,css and js files
+dist/
+
 # Logs
 logs
 *.log
