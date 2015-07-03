@@ -4,8 +4,10 @@
   "description": "My first app with Node.js, Express, Bower, Gulp",
   "repository": "https://github.com/AltynDaur/ContactListApp",
   "dependencies": {
+    "body-parser": "^1.13.1",
     "bower": "^1.4.1",
-    "gulp": "^3.9.0"
+    "gulp": "^3.9.0",
+    "mongojs": "^1.0.2"
   },
   "devDependencies": {
     "bower": "^1.4.1",

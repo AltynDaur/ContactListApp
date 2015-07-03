@@ -1,30 +1,49 @@
 var express = require('express');
 var app = express();
+var mongojs = require('mongojs');
+var db = mongojs('contactlist',['contactlist']);
+var bodyParser = require('body-parser');
 
 app.use(express.static(__dirname+'/public'));
+app.use(bodyParser.json());
 
 app.get('/contactlist',function (req,res) {
-	console.log('Need more data!');
-	person1= {
-	        name: 'Tim',
-	        email: 'tim@gmail.com',
-	        number:'(571) 426-1433'
-	    };
+	db.contactlist.find(function  (err,data) {
+		console.log(data);
+		res.json(data);
+	})
+});
 
-	    person2 = {
-	        name:'Liam',
-	        email:'neason@taken2.com',
-	        number: '(777) 777-7777'
-	    };
+app.post('/contactlist',function(req,res){
+	console.log(req.body);
+	db.contactlist.insert(req.body,function  (err,docs) {
+		res.json(docs);
+	})
+});
 
-	    person3={
-	        name: 'Jessie',
-	        email:'jessie@vma.com',
-	        number: '(684) 426-1232'
-	    };
+app.delete('/contactlist/:id',function  (req,res) {
+	var id = req.params.id;
+	console.log(id);
+	db.contactlist.remove({_id:mongojs.ObjectId(id)},function  (err, docs) {
+		res.json(docs);
+	})
+});
 
-	var contactlist = [person1, person2, person3];
-	res.json(contactlist);
+app.get('/contactlist/:id',function  (req,res) {
+	var id = req.params.id;
+	db.contactlist.findOne({_id: mongojs.ObjectId(id)},function  (err,docs) {
+		console.log(docs);
+		res.json(docs);
+	});
+});
+
+app.put('/contactlist/:id', function  (req, res) {
+	var id = req.params.id;
+	db.contactlist.findAndModify({query: {_id: mongojs.ObjectId(id)},
+		update: {$set: {name: req.body.name, email: req.body.email, number: req.body.number}},
+		new: true}, function  (err,docs) {
+			res.json(docs);
+		});
 });
 
 app.listen(3000);
