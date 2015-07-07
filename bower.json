@@ -17,6 +17,8 @@
   "dependencies": {
     "angular": "~1.4.1",
     "jquery": "~2.1.4",
-    "bootstrap-css": "~3.3.4"
+    "bootstrap-css": "~3.3.4",
+    "ui-router": "~0.2.15",
+    "angular-jwt": "~0.0.9"
   }
 }

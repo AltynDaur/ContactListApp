@@ -1,9 +1,11 @@
-var gulp = require('gulp');
-var htmlmin = require('gulp-htmlmin');
-var concat = require('gulp-concat');
-var bower = require('gulp-bower');
+var gulp = require('gulp'),
+    htmlmin = require('gulp-htmlmin'),
+    concat = require('gulp-concat'),
+    bower = require('gulp-bower'),
+    server = require('gulp-server-livereload'),
+    watch = require('gulp-watch');
 
-gulp.task('default', ['minHtml','scripts','bower']);
+gulp.task('default', ['minHtml','scripts','bower','webserver','watch']);
 
 gulp.task('minHtml',function() {
   return gulp.src('public/*.html')
@@ -20,4 +22,20 @@ gulp.task('scripts', function() {
 gulp.task('bower', function() {
   return bower()
     .pipe(gulp.dest('./dist/components/'));
+});
+
+gulp.task('webserver', function() {
+  gulp.src('app')
+      .pipe(server({
+        livereload: true,
+        directoryListing: true,
+        open: true,
+        port:3000
+      }));
+});
+
+gulp.task('watch', function () {
+  watch('public/*', function () {
+    gulp.start('default');
+  });
 });
