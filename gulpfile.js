@@ -8,7 +8,7 @@ gulp.task('default', ['minHtml','scripts','bower']);
 gulp.task('minHtml',function() {
   return gulp.src('public/*.html')
     .pipe(htmlmin({collapseWhitespace: true}))
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('scripts', function() {
@@ -19,5 +19,5 @@ gulp.task('scripts', function() {
 
 gulp.task('bower', function() {
   return bower()
-    .pipe(gulp.dest('./dist/components/'))
+    .pipe(gulp.dest('./dist/components/'));
 });

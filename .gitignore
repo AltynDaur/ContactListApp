@@ -1,5 +1,8 @@
-#production html,css and js files
+# Production html,css and js files
 dist/
+
+# WebStorm system folders
+/.idea
 
 # Logs
 logs
