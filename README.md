@@ -2,7 +2,7 @@
 Things, that required:
 MongoDB, Nodejs and npm
 
-To start this app, follow next steps:
+<p>To start this app, follow next steps:</p>
 1) start MongoDB with 'mongod' command in command line
 2) install app from app's folder with command 'npm install'
 3) start gulp with command 'gulp'
