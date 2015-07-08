@@ -1,7 +1,7 @@
 {
   "name": "ContactListApp",
   "version": "0.0.0",
-  "homepage": "https://github.com/AltynDaur/ContactListApp",
+  "homepage": "https://github.com/AltynDaur/Textogram",
   "authors": [
     "Dauren_Altynbekov <Dauren_Altynbekov@epam.com>"
   ],
@@ -19,6 +19,8 @@
     "jquery": "~2.1.4",
     "bootstrap-css": "~3.3.4",
     "ui-router": "~0.2.15",
-    "angular-jwt": "~0.0.9"
+    "angular-jwt": "~0.0.9",
+    "angular-translate": "~2.7.2",
+    "angular-resource": "~1.4.2"
   }
 }

@@ -1,3 +1,3 @@
 (function(){
-    angular.module('register',[]);
+    angular.module('register',['userService']);
 })();

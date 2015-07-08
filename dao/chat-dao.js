@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
+var ChatSchema = require('../models/chat');
+dbURI = 'mongodb://localhost/textogram';
 
-var chatSchema = new mongoose.Schema({
-    userId: {type: mongoose.Schema.Types.ObjectId, ref:User },
-    messages:[{type: mongoose.Schema.Types.ObjectId, ref:Message}]
-});
+
+var Chat  = mongoose.model('Chat',chatSchema);
+
+

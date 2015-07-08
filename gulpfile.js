@@ -3,29 +3,35 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     bower = require('gulp-bower'),
     server = require('gulp-server-livereload'),
-    watch = require('gulp-watch');
+    watch = require('gulp-watch'),
+    plumber = require('gulp-plumber'),
+    batch = require('gulp-batch');
 
-gulp.task('default', ['minHtml','scripts','bower','webserver','watch']);
+gulp.task('default', ['minHtml','scripts','bower','watch']);
 
 gulp.task('minHtml',function() {
-  return gulp.src('public/*.html')
-    .pipe(htmlmin({collapseWhitespace: true}))
-    .pipe(gulp.dest('dist'));
+  return gulp.src('public/**/*.html')
+      .pipe(plumber())
+      .pipe(htmlmin({collapseWhitespace: true}))
+      .pipe(gulp.dest('dist'));
 });
 
 gulp.task('scripts', function() {
-  return gulp.src(['./public/**/*.module.js','./public/**/*.controller.js','./public/**/*.js'])
-    .pipe(concat('all.js'))
-    .pipe(gulp.dest('./dist/js/'));
+  return gulp.src(['./public/**/*.module.js','./public/**/*.service.js','./public/**/*.controller.js','./public/**/*.js'])
+      .pipe(plumber())
+      .pipe(concat('all.js'))
+      .pipe(gulp.dest('./dist/js/'));
 });
 
 gulp.task('bower', function() {
   return bower()
-    .pipe(gulp.dest('./dist/components/'));
+      .pipe(plumber())
+      .pipe(gulp.dest('./dist/components/'));
 });
 
 gulp.task('webserver', function() {
   gulp.src('app')
+      .pipe(plumber())
       .pipe(server({
         livereload: true,
         directoryListing: true,
@@ -35,7 +41,7 @@ gulp.task('webserver', function() {
 });
 
 gulp.task('watch', function () {
-  watch('public/*', function () {
-    gulp.start('default');
-  });
+    watch(['public/*','public/**'], batch(function (events, done) {
+        gulp.start('default', done);
+    })).pipe(plumber());
 });

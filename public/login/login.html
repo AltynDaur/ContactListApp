@@ -1,1 +1,28 @@
-<h2>Login</h2>
+<div class="jumbotron">
+    <h1 align="center" ng-show="vm.loginPerson.name">{{'GREETINGALTER' | translate}}{{vm.loginPerson.name}}!</h1>
+    <h1 align="center" ng-show="!vm.loginPerson.name">{{'GREETING' | translate}}</h1>
+</div>
+<div>
+    <form id="log">
+        <div class="col-sm-4 col-sm-offset-4">
+            <div class="form-group">
+                <label for="loginInput">{{'LOGIN' | translate}}</label>
+                <input id="loginInput" class="form-control" placeholder="{{'ENTERFN' | translate}}"  ng-model="vm.loginPerson.name"/>
+            </div>
+            <div class="form-group">
+                <label for="passwordInput">{{'PASS' | translate}}</label>
+                <input type="password" id="passwordInput" class="form-control" placeholder="{{'ENTERPASS' | translate}}" ng-model="vm.loginPerson.password">
+            </div>
+            <button type="submit" ng-click="vm.login()" class="btn btn-primary">{{'SIGNIN' | translate}}</button>
+            <ul ng-hide="!successMessages" class="success">
+                <li ng-repeat="message in successMessages">{{message}}</li>
+            </ul>
+            <ul ng-hide="!errorMessages" class="error">
+                <li ng-repeat="message in errorMessages">{{message}}</li>
+            </ul>
+        </div>
+    </form>
+</div>
+<div class="col-lg-offset-10">
+    <a ui-sref="start">{{'BACK' | translate}}</a>
+</div>

@@ -1,15 +1,11 @@
 var mongoose = require('mongoose');
-dbURI = 'mongodb://localhost/textogram';
+var userSchema = require('../models/user');
+dbURI = 'mongodb://localhost:27017/textogram';
 mongoose.connect(dbURI);
-var userSchema = new mongoose.Schema({
-    name: {type: String, unique: true},
-    password: {type: String},
-    email: {type: String},
-    allChats: [{type: mongoose.Schema.Types.ObjectsId, ref: Chat}]
-});
-var User = mongoose.model('User',userSchema);
 
-exports.addUser = function(user){
+var User  = mongoose.model('User',userSchema);
+
+exports.addUser = function (user){
     var newUser = new User({
         name: user.name,
         password: user.password,
@@ -23,9 +19,12 @@ exports.addUser = function(user){
 };
 
 exports.getUser = function(name,pass){
-    return User.find({name:name,password: pass}, function(err){
+    var currentUser = {};
+    User.findOne({name:name}, function(err, user){
         if(!err){
-            console.log('User here!');
+            console.log(user);
+            currentUser = user;
         }
     });
+    return currentUser;
 };

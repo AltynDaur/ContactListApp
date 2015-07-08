@@ -1,0 +1,37 @@
+<div class="jumbotron">
+    <h1 align="center" ng-show="vm.registerPerson.name">{{'GREETINGALTER' | translate}}{{vm.registerPerson.name}}!</h1>
+    <h1 align="center" ng-show="!vm.registerPerson.name">{{'GREETING' | translate}}</h1>
+</div>
+<div>
+    <form id="log">
+        <div class="col-sm-4 col-sm-offset-4">
+            <div class="form-group">
+                <label for="lastNameInput">{{'NAME' | translate}}</label>
+                <input id="lastNameInput" class="form-control" placeholder="{{'ENTERFN' | translate}}"  ng-model="vm.registerPerson.name"/>
+            </div>
+            <div class="form-group">
+                <label for="loginInput">{{'EMAIL' | translate}}</label>
+                <input id="loginInput" class="form-control" placeholder="{{'ENTEREMAIL' | translate}}"  ng-model="vm.registerPerson.email"/>
+            </div>
+            <div class="form-group">
+                <label for="passwordInput">{{'PASS' | translate}}</label>
+                <input type="password" id="passwordInput" class="form-control" placeholder="{{'CREATEPASS' | translate}}" ng-model="vm.registerPerson.password">
+            </div>
+            <div class="form-group">
+                <label for="repeatPasswordInput">{{'REPEATPASS' | translate}}</label>
+                <input type="password" id="repeatPasswordInput" class="form-control" placeholder="{{'REPEATYPASS' | translate}}" ng-model="vm.registerPerson.repeatPassword">
+            </div>
+            <button type="submit" ng-click="vm.register()" class="btn btn-primary">{{'REGISTER' | translate}}</button>
+            <ul ng-hide="!successMessages" class="success">
+                <li ng-repeat="message in successMessages">{{message}}</li>
+            </ul>
+            <ul ng-hide="!errorMessages" class="error">
+                <li ng-repeat="message in errorMessages">{{message}}</li>
+            </ul>
+
+        </div>
+    </form>
+</div>
+<div class="col-lg-offset-10">
+    <a ui-sref="start">{{'BACK' | translate}}</a>
+</div>
