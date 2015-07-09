@@ -1,13 +1,18 @@
 var gulp = require('gulp'),
     htmlmin = require('gulp-htmlmin'),
     concat = require('gulp-concat'),
-    bower = require('gulp-bower'),
-    server = require('gulp-server-livereload'),
+    bower = require('gulp-bower')
     watch = require('gulp-watch'),
     plumber = require('gulp-plumber'),
-    batch = require('gulp-batch');
+    batch = require('gulp-batch'),
+    server     = require( 'gulp-express' );
 
-gulp.task('default', ['minHtml','scripts','bower','watch']);
+
+
+
+gulp.task('default', ['watch','server']);
+
+gulp.task('updateFront',['minHtml','scripts','bower','watch']);
 
 gulp.task('minHtml',function() {
   return gulp.src('public/**/*.html')
@@ -29,19 +34,19 @@ gulp.task('bower', function() {
       .pipe(gulp.dest('./dist/components/'));
 });
 
-gulp.task('webserver', function() {
-  gulp.src('app')
-      .pipe(plumber())
-      .pipe(server({
-        livereload: true,
-        directoryListing: true,
-        open: true,
-        port:3000
-      }));
+gulp.task('server', function () {
+    // Start the server at the beginning of the task
+    server.run(['server.js']);
+
+    // Restart the server when file changes
+    gulp.watch(['/dist/*','/dist/**'], server.notify);
+
+    gulp.watch(['dao/*','models/*','routes/*'], server.notify);
+    gulp.watch(['server.js'], [server.run]);
 });
 
 gulp.task('watch', function () {
-    watch(['public/*','public/**'], batch(function (events, done) {
-        gulp.start('default', done);
+    watch(['public/*','public/**/*'], batch(function (events, done) {
+        gulp.start('updateFront', done);
     })).pipe(plumber());
 });

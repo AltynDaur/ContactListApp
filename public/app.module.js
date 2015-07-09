@@ -1,7 +1,8 @@
 (function(){
-    angular.module('Textogram',['ui.router','angular-jwt','pascalprecht.translate','login','register','main']).config(TextogramConfig);
+    angular.module('Textogram',['ui.router','angular-jwt','pascalprecht.translate','angular-storage','login','register','main'])
+        .config(TextogramConfig).run(AppRun);
 
-    function TextogramConfig($urlRouterProvider, jwtInterceptorProvider, $httpProvider, $stateProvider,$translateProvider){
+    function TextogramConfig($urlRouterProvider, $httpProvider, $stateProvider,$translateProvider,jwtInterceptorProvider){
         $urlRouterProvider.otherwise('/');
         $stateProvider.state('register', {
             url: '/register',
@@ -18,9 +19,14 @@
             templateUrl:'start.html'
         }).state('main',{
             url:'/main',
-            templateUrl:'/main/main.html'
+            templateUrl:'/main/main.html',
+            data:{
+                requiresLogin:true
+            }
         });
-
+        jwtInterceptorProvider.tokenGetter = function (store) {
+            return store.get('jwt');
+        };
         $httpProvider.interceptors.push('jwtInterceptor');
 
         $translateProvider.translations('en', {
@@ -70,5 +76,16 @@
 
         });
         $translateProvider.preferredLanguage('en');
+    };
+
+    function AppRun($state,store,$rootScope){
+        $rootScope.$on('$stateChangeStart',function(e,to){
+            if(to.data && to.data.requiresLogin){
+                if(!store.get('jwt')){
+                    e.preventDefault();
+                    $state.go('login');
+                };
+            }
+        })
     };
 })();

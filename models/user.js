@@ -5,5 +5,5 @@ var userSchema = module.exports= new mongoose.Schema({
     name: {type: String, unique: true},
     password: {type: String},
     email: {type: String},
-    allChats: [ChatSchema]
+    allChats: [{type: mongoose.Types.ObjectId, ref: ChatSchema}]
 });

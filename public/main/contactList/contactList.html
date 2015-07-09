@@ -1,0 +1,11 @@
+<div>
+    <form class="form-inline">
+        <div class="form-group">
+            <input ng-model="vm.searchStr" placeholder="Start search here">
+        </div>
+        <button class="btn btn-primary" ng-click="vm.search()">Search</button>
+    </form>
+    <ul ng-repeat="contact in vm.contacts">
+        <li><a href="" ng-click="vm.showChat(contact._id)">{{contact.name}}</a></li>
+    </ul>
+</div>

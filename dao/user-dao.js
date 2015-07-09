@@ -28,3 +28,10 @@ exports.getUser = function(name,pass){
     });
     return currentUser;
 };
+
+exports.getUsers = function(cb) {
+    User.find({},function(err,result){
+
+        cb(result);
+    });
+};

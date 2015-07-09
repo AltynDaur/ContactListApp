@@ -2,9 +2,10 @@
     angular.module('userService',['ngResource']).factory('Users',usersFactory);
 
     function usersFactory($resource){
-        return $resource('/:action',{},{
+        return $resource('/users/:action',{},{
             register:{method:'POST',params:{action:'register'}},
-            login:{method:'POST',params:{action: 'login'}}
+            login:{method:'POST',params:{action: 'login'}},
+            query:{method:'GET',isArray:true }
         });
     };
 })();

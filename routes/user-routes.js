@@ -1,8 +1,8 @@
 var express = require('express'),
     _ = require('lodash'),
     jwt = require('jsonwebtoken'),
-    config  = require('./config'),
-    userdao = require('./dao/user-dao');
+    config  = require('./../config'),
+    userdao = require('./../dao/user-dao');
 
 var app = module.exports = express.Router();
 
@@ -12,7 +12,7 @@ function createToken(user) {
     return jwt.sign(userForToken, config.secret, {expiresInMinutes: 60 * 30});
 };
 
-app.post('/register', function (req, res) {
+app.post('/users/register', function (req, res) {
 /*    if (!req.body.name || !req.body.password) {
         return res.status(400).send("You must send the username and the password");
     }*/
@@ -26,7 +26,7 @@ app.post('/register', function (req, res) {
     res.status(201).send("User created");
 });
 
-app.post('/login', function (req, res) {
+app.post('/users/login', function (req, res) {
 
 
     var user = userdao.getUser(req.body.name, req.body.password);
@@ -43,4 +43,11 @@ app.post('/login', function (req, res) {
     {
         id_token: createToken(user)
     });
+});
+
+app.get('/users', function(req,res){
+    userdao.getUsers(function(users){
+        res.send(users);
+    });
+
 });
