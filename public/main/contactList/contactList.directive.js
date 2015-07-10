@@ -6,7 +6,12 @@
             restrict: 'E',
             controller: 'contactListController',
             controllerAs: 'vm',
-            templateUrl: 'main/contactList/contactList.html'
+            scope:{
+                contacts:'=',
+                startChat:'='
+            },
+            templateUrl: 'main/contactList/contactList.html',
+            bindToController: true
         };
     };
 })();

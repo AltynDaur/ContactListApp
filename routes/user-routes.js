@@ -51,3 +51,11 @@ app.get('/users', function(req,res){
     });
 
 });
+
+app.get('/users/startChat/:id',function(req,res){
+    var authHeader = req.get('Authorization');
+    var token = authHeader.slice(7,authHeader.length);
+    var currentUser = jwt.decode(token,{complete:true});//TODO
+    console.log(currentUser);
+    res.sendStatus(200);
+});

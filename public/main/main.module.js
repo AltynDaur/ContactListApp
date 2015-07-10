@@ -1,3 +1,3 @@
 (function(){
-    angular.module('main',['contactList', 'chat']);
+    angular.module('main',['contactList', 'chat','chatList']);
 })();

@@ -1,16 +1,20 @@
 (function(){
     angular.module('contactList').controller('contactListController',contactListController);
 
-    function contactListController(Users){
+    function contactListController(Users,$scope){
         var vm = this;
-        vm.showChat = showChat;
+        vm.startChat = startChat;
+        vm.contacts = [];
 
-        function showChat(id){
+        function startChat(id){
+            Users.startChat({id:id},function(response){
+                $scope.$parent.chat = response;
+            });
 
         };
 
         function refresh(){
-           vm.contacts = Users.query();
+            vm.contacts = Users.query();
         };
 
         refresh();

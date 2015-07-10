@@ -6,7 +6,8 @@
           restrict: 'E',
           controller: 'chatController',
           controllerAs: 'vm',
-          templateUrl: '/main/chat/chat.html'
+          templateUrl: '/main/chat/chat.html',
+          bindToController: true
       };
     };
 })();

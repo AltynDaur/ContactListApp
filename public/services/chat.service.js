@@ -3,7 +3,7 @@
 
     function chatsFactory($resource){
         return $resource('/chats/:id',{},{
-
+            query:{method: 'GET', isArray: true}
         });
     };
 })();
