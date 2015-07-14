@@ -1,5 +1,6 @@
 # Textogram
 <p>Simple chat - application</p>
+<p>I use NodeJS and Express on backend, AngularJS on frontend, also I use GulpJS, Bower and Bootstrap</p>
 
 <p>To start this app, follow next steps:</p>
 <p>1) start MongoDB with 'mongod' command in command line</p>
