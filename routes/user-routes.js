@@ -2,7 +2,8 @@ var express = require('express'),
     _ = require('lodash'),
     jwt = require('jsonwebtoken'),
     config  = require('./../config'),
-    userdao = require('./../dao/user-dao');
+    userdao = require('./../dao/user-dao'),
+    Base64 = require('js-base64').Base64;
 
 var app = module.exports = express.Router();
 
@@ -55,7 +56,11 @@ app.get('/users', function(req,res){
 app.get('/users/startChat/:id',function(req,res){
     var authHeader = req.get('Authorization');
     var token = authHeader.slice(7,authHeader.length);
-    var currentUser = jwt.decode(token,{complete:true});//TODO
-    console.log(currentUser);
+    var  user = '';
+    if (typeof token !== 'undefined') {
+        var encoded = token.split('.')[2];
+        user = Base64.decode(encoded);
+    }
+    console.log(user);
     res.sendStatus(200);
 });
