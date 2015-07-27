@@ -2,16 +2,18 @@
   "name": "Textogram",
   "author": "dauren",
   "version": "1.0.0",
+  "license": "MIT",
   "description": "My first app with Node.js, Express, Bower, Gulp",
   "repository": "https://github.com/AltynDaur/Textogram",
   "dependencies": {
     "body-parser": "^1.13.1",
     "express": "^4.13.0",
     "js-base64": "^2.1.8",
-    "jsonwebtoken": "^5.0.2",
+    "jwt-simple": "^0.3.0",
     "lodash": "^3.10.0",
     "mongoose": "^4.0.6",
-    "nconf": "^0.7.1"
+    "nconf": "^0.7.1",
+    "socket.io": "^1.3.6"
   },
   "devDependencies": {
     "bower": "^1.4.1",

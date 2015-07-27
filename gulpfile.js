@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 
 
 
-gulp.task('default', ['watch','server']);
+gulp.task('default', ['watch','server','updateFront']);
 
 gulp.task('updateFront',['minHtml','scripts','bower','watch']);
 

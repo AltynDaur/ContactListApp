@@ -1,27 +1,21 @@
 var express = require('express'),
     _ = require('lodash'),
-    jwt = require('jsonwebtoken'),
+    jwt = require('jwt-simple'),
     config  = require('./../config'),
-    userdao = require('./../dao/user-dao'),
-    Base64 = require('js-base64').Base64;
+    userdao = require('./../dao/user-dao');
 
 var app = module.exports = express.Router();
 
 function createToken(user) {
     userForToken = _.omit(user, 'password');
-    console.log(userForToken);
-    return jwt.sign(userForToken, config.secret, {expiresInMinutes: 60 * 30});
+    return jwt.encode(userForToken, config.secret);
 };
 
 app.post('/users/register', function (req, res) {
 /*    if (!req.body.name || !req.body.password) {
         return res.status(400).send("You must send the username and the password");
     }*/
-/*
-    if (_.find(users, {name: req.body.name})) {
-        return res.status(400).send("A user with that username already exists");
-    }
-*/
+
     var newUser = _.pick(req.body, ['name', 'password', 'email']);
     userdao.addUser(newUser);
     res.status(201).send("User created");
@@ -56,11 +50,7 @@ app.get('/users', function(req,res){
 app.get('/users/startChat/:id',function(req,res){
     var authHeader = req.get('Authorization');
     var token = authHeader.slice(7,authHeader.length);
-    var  user = '';
-    if (typeof token !== 'undefined') {
-        var encoded = token.split('.')[2];
-        user = Base64.decode(encoded);
-    }
-    console.log(user);
+    var currentUser = jwt.decode(token,config.secret);
+    console.log(currentUser);
     res.sendStatus(200);
 });
